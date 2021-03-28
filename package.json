@@ -1,0 +1,41 @@
+{
+  "name": "stream-socket.io",
+  "version": "0.1.0",
+  "description": "Use stream through Socket.IO.",
+  "keywords": [
+    "socket.io",
+    "stream",
+    "file",
+    "process",
+    "network"
+  ],
+  "author": {
+    "name": "rulyox",
+    "email": "email@rulyox.com",
+    "url": "https://rulyox.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rulyox/stream-socket.io"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test-server": "node test/server.js",
+    "test-client": "node test/client.js",
+    "lint": "eslint lib/**"
+  },
+  "dependencies": {
+    "@types/uuid": "^8.3.0",
+    "socket.io": "^4.0.0",
+    "socket.io-client": "^4.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0",
+    "typescript": "^4.2.3"
+  }
+}
