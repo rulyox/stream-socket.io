@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/rulyox/stream-socket.io"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test-server": "node test/server.js",
