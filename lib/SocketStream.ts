@@ -1,14 +1,13 @@
 import { Writable, Readable } from 'stream';
 import { v4 as uuid } from 'uuid';
 import { Socket } from 'socket.io';
-import { Socket as SocketClient } from 'socket.io-client';
 
 class SocketStream {
 
     private openReadables: { [id: string]: Readable } = {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-    public emit(socket: Socket|SocketClient, event: string, options?: any): Writable {
+    public emit(socket: Socket|SocketIOClient.Socket, event: string, options?: any): Writable {
 
         const id = uuid();
 
@@ -42,7 +41,7 @@ class SocketStream {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public on(socket: Socket|SocketClient, event: string, callback: (readStream: Readable, id: string, options?: any) => void): void {
+    public on(socket: Socket|SocketIOClient.Socket, event: string, callback: (readStream: Readable, id: string, options?: any) => void): void {
 
         socket.on(event, (data) => {
 
