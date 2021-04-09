@@ -1,6 +1,6 @@
 {
   "name": "stream-socket.io",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Use stream through Socket.IO.",
   "keywords": [
     "socket.io",
