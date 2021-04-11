@@ -1,6 +1,7 @@
 import { Writable, Readable } from 'stream';
 import { v4 as uuid } from 'uuid';
 import { Socket } from 'socket.io';
+import Data from './Data';
 
 class SocketStream {
 
@@ -15,11 +16,8 @@ class SocketStream {
             write(chunk, encoding, callback) {
 
                 // emit data
-                socket.emit(event, {
-                    id: id,
-                    chunk: chunk,
-                    options: options
-                });
+                const data = new Data(id, undefined, chunk, options);
+                socket.emit(event, data);
 
                 callback();
 
@@ -29,10 +27,8 @@ class SocketStream {
         writable.on('finish', () => {
 
             // emit finish
-            socket.emit(event, {
-                id: id,
-                finish: true
-            });
+            const data = new Data(id, true, undefined, undefined);
+            socket.emit(event, data);
 
         });
 
@@ -43,11 +39,13 @@ class SocketStream {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public on(socket: Socket|SocketIOClient.Socket, event: string, callback: (readStream: Readable, id: string, options?: any) => void): void {
 
-        socket.on(event, (data) => {
+        socket.on(event, (obj) => {
+
+            const data: Data = Data.getInstance(obj);
 
             const id = data.id;
 
-            if('finish' in data) { // received finish
+            if(data.finish === true) { // received finish
 
                 this.openReadables[id].push(null); // EOF
 
