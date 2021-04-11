@@ -19,6 +19,8 @@
     "padded-blocks": ["error", "always"],
     "indent": ["error", 4],
     "semi": ["error", "always"],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

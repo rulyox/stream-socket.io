@@ -7,7 +7,6 @@ class SocketStream {
 
     private openReadables: { [id: string]: Readable } = {};
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
     public emit(socket: Socket|SocketIOClient.Socket, event: string, options?: any): Writable {
 
         const id = uuid();
@@ -36,7 +35,6 @@ class SocketStream {
 
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public on(socket: Socket|SocketIOClient.Socket, event: string, callback: (readStream: Readable, id: string, options?: any) => void): void {
 
         socket.on(event, (obj) => {
@@ -53,7 +51,8 @@ class SocketStream {
 
             } else { // received data
 
-                if(!(id in this.openReadables)) { // new id
+                // new id
+                if(!(id in this.openReadables)) {
 
                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                     const readable = new Readable({ read() {} });
