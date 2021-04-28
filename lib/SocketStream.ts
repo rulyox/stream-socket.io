@@ -5,7 +5,7 @@ import Data from './Data';
 
 class SocketStream {
 
-    private openReadables: { [id: string]: Readable } = {};
+    private readableMap = new Map<string, Readable>();
 
     public emit(socket: Socket|SocketIOClient.Socket, event: string, options?: any): Writable {
 
@@ -45,25 +45,25 @@ class SocketStream {
 
             if(data.finish === true) { // received finish
 
-                this.openReadables[id].push(null); // EOF
+                this.readableMap.get(id)?.push(null); // EOF
 
-                delete this.openReadables[id];
+                this.readableMap.delete(id);
 
             } else { // received data
 
                 // new id
-                if(!(id in this.openReadables)) {
+                if(!this.readableMap.has(id)) {
 
                     // eslint-disable-next-line @typescript-eslint/no-empty-function
                     const readable = new Readable({ read() {} });
 
-                    this.openReadables[id] = readable;
+                    this.readableMap.set(id, readable);
 
                     callback(readable, id, data.options);
 
                 }
 
-                this.openReadables[id].push(data.chunk);
+                this.readableMap.get(id)?.push(data.chunk);
 
             }
 
